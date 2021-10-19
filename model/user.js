@@ -8,17 +8,13 @@ const UseSchema = new Schema({
   created: { type: Date, default: Date.now }
 });
 
-UseSchema.pre('save', function(next){
+UseSchema.pre('save', async function (next) {
   let user = this;
-  if(!user.isModified('password')){
-    return next();
-  }else{
-    bcrypt.hash(user.password, 10, (err, encrypted) => {
-      user.password = encrypted;
-      return next();
-    })
-  }
-})
+  if (!user.isModified('password')) return next();
+
+  user.password = await bcrypt.hash(user.password, 10);
+  return next();
+});
 
 
 module.exports = mongoose.model('use', UseSchema);
