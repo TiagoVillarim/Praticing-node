@@ -2,6 +2,12 @@ const express = require('express');
 const route = express.Router();
 const Users = require('../model/user');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const createUserToken = (userId) => {
+  return jwt.sign({id: userId}, 'villa1234', {expiresIn: '3d'})
+}
+
 
 route.get('/', async (req, res) => {
   try{
@@ -23,7 +29,7 @@ route.post('/create', async (req, res) => {
 
     const user = await Users.create(req.body);
     user.password = undefined;
-    return res.send(user);
+    return res.send({user, token: createUserToken(user.id)});
 
   }catch(err){
     return res.send({ error: 'Erro ao buscar usuário!' });
@@ -44,7 +50,7 @@ route.post('/auth', async (req, res) => {
       if(!pass_ok) return res.send({ error: 'Erro ao autenticar usuário!' });
 
       user.password = undefined;
-      return res.send(user);
+      return res.send({user, token: createUserToken(user.id)});
   }
   catch (err) {
       return res.send({ error: 'Erro ao buscar usuário!' });
