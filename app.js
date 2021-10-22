@@ -4,15 +4,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./Routes/index');
 const users = require('./Routes/users');
+const config = require('./config/config');
 
 
 
-const url = 'mongodb+srv://Tiago_villarim:villa134679@clusterapi.rdlsb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const url = config.bd_string;
 
-// const options = { reconnectTries: Number.MAX_VALUE, reconnectInterval: 500, poolSize: 5, useNewUrlParser: true };
 
 mongoose.connect(url);
-// mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('error', (err) => {
   console.log('erro na conexão com o banco de dados' + err)
