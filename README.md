@@ -2,10 +2,10 @@
 
 Node api project with mongoDB + express
 
--project content:
+-project content =>
 
-  -create users;
+  ---create users;
   
-  -view all created users in mongoDB;
+  ---view all created users in mongoDB;
   
-  -authenticate users, using token, email and password;
+  ---authenticate users, using token, email and password;
