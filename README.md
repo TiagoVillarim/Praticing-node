@@ -1,4 +1,4 @@
-# Praticing-node
+# Practicing-node
 
 Node api project with mongoDB + express
 
